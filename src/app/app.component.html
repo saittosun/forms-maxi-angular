@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form>
+      <!-- we want to get access to the form created by Angular. Now you learned about local references you can place on HTML elements to get access to them, so we could place #f on the form element and now we could access this form element on the f reference in our template and we could pass f as an argument to the onSubmit method and print it there. -->
+      <!-- we can set it equal to something exposed by this form here, keep in mind the form element is kind of a selector for a directive built into Angular which will create this Javascript object automatically and then it will expose some data we can fetch here on this form element. -->
+      <!-- #f="ngForm" tells Angular hey please give me access to this form you created automatically. this is how you get access to the form, to this Javascript object created by Angular automatically. -->
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div id="user-data">
           <div class="form-group">
             <label for="username">Username</label>
