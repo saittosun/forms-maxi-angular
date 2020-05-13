@@ -5,7 +5,12 @@
       <!-- we can set it equal to something exposed by this form here, keep in mind the form element is kind of a selector for a directive built into Angular which will create this Javascript object automatically and then it will expose some data we can fetch here on this form element. -->
       <!-- #f="ngForm" tells Angular hey please give me access to this form you created automatically. this is how you get access to the form, to this Javascript object created by Angular automatically. -->
       <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div id="user-data">
+        <!-- the userData, this will be the key name for this group. -->
+        <!-- You can also get access to the Javascript representation by again adding a local reference to the element which holds the ngModelGroup directive, here for example userData would be a fitting name and then setting this equal to ngModelGroup. So just like we did before with e-mail which was equal to ngModel, I'm now setting this reference equal to ngModel group to get access to this Javascript object and this would allow us to for example output a message if this whole group is not valid. -->
+        <div
+          id="user-data"
+          ngModelGroup="userdata"
+          #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input
@@ -34,6 +39,7 @@
                 Please enter a valid email address.</span>
           </div>
         </div>
+        <p *ngIf="!userData.valid && userData.touched">Userdata is invalid</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <!-- we're not using two-way by binding as of now and now we can bind it to a value and remember with it, I mean the control, this input here which is turned into a control by Angular in the background. -->
