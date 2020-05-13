@@ -46,6 +46,16 @@
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
+        <div class="form-group">
+          <!-- we could add ngModel to get access to whatever the user entered as a reply -->
+          <textarea
+            name="questionAnswer"
+            rows="3"
+            class="form-control"
+            [(ngModel)]="answer">
+          </textarea>
+        </div>
+        <p>your reply: {{answer}}</p>
         <button
           class="btn btn-primary"
           type="submit"
