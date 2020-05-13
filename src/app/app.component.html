@@ -36,10 +36,11 @@
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
+          <!-- we're not using two-way by binding as of now and now we can bind it to a value and remember with it, I mean the control, this input here which is turned into a control by Angular in the background. -->
           <select
             id="secret"
             class="form-control"
-            ngModel
+            [ngModel]="defaultQuestion"
             name="secret">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
