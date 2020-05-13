@@ -62,6 +62,18 @@
           </textarea>
         </div>
         <p>your reply: {{answer}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <!-- I will give it a name of gender because in a radio button, I can only select one of them in a group, so the name should be gender for whichever button is selected and I will place ngModel on it to make it a control and I will prepopulate or I set the value of this button equal to gender, so this variable of my ngFor loop. -->
+            <input
+              type="radio"
+              name="gender"
+              ngModel
+              required
+              [value]="gender">
+              {{gender}}
+          </label>
+        </div>
         <button
           class="btn btn-primary"
           type="submit"
