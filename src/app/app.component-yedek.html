@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- we want to get access to the form created by Angular. Now you learned about local references you can place on HTML elements to get access to them, so we could place #f on the form element and now we could access this form element on the f reference in our template and we could pass f as an argument to the onSubmit method and print it there. -->
+      <!-- we can set it equal to something exposed by this form here, keep in mind the form element is kind of a selector for a directive built into Angular which will create this Javascript object automatically and then it will expose some data we can fetch here on this form element. -->
+      <!-- #f="ngForm" tells Angular hey please give me access to this form you created automatically. this is how you get access to the form, to this Javascript object created by Angular automatically. -->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <!-- the userData, this will be the key name for this group. -->
+        <!-- You can also get access to the Javascript representation by again adding a local reference to the element which holds the ngModelGroup directive, here for example userData would be a fitting name and then setting this equal to ngModelGroup. So just like we did before with e-mail which was equal to ngModel, I'm now setting this reference equal to ngModel group to get access to this Javascript object and this would allow us to for example output a message if this whole group is not valid. -->
+        <div
+          id="user-data"
+          ngModelGroup="userdata"
+          #userData="ngModelGroup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              class="form-control"
+              ngModel
+              name="username"
+              required>
+          </div>
+          <button
+            class="btn btn-default"
+            type="button"
+            (click)="suggestUserName()">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              ngModel
+              name="email"
+              required
+              email
+              #email="ngModel">
+              <span
+                class="help-block"
+                *ngIf="!email.valid && email.touched">
+                Please enter a valid email address.</span>
+          </div>
+        </div>
+        <p *ngIf="!userData.valid && userData.touched">Userdata is invalid</p>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <!-- we're not using two-way by binding as of now and now we can bind it to a value and remember with it, I mean the control, this input here which is turned into a control by Angular in the background. -->
+          <select
+            id="secret"
+            class="form-control"
+            [ngModel]="defaultQuestion"
+            name="secret">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <!-- we could add ngModel to get access to whatever the user entered as a reply -->
+          <textarea
+            name="questionAnswer"
+            rows="3"
+            class="form-control"
+            [(ngModel)]="answer">
+          </textarea>
+        </div>
+        <p>your reply: {{answer}}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <!-- I will give it a name of gender because in a radio button, I can only select one of them in a group, so the name should be gender for whichever button is selected and I will place ngModel on it to make it a control and I will prepopulate or I set the value of this button equal to gender, so this variable of my ngFor loop. -->
+            <input
+              type="radio"
+              name="gender"
+              ngModel
+              required
+              [value]="gender">
+              {{gender}}
+          </label>
+        </div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your Data</h3>
+      <p>Username: {{ user.username }}</p>
+      <p>Mail: {{ user.email }}</p>
+      <p>Secret Question: Your first {{ user.secretQuestion }}</p>
+      <p>Answer: {{ user.answer }}</p>
+      <p>Gender: {{ user.gender }}</p>
+    </div>
+  </div>
+</div>
